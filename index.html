@@ -130,9 +130,7 @@
         .btn-no {
             background: #eee;
             color: #999;
-            position: absolute;
-            right: 0;
-            top: 0;
+            position: relative;
             transition: all 0.1s;
         }
 
@@ -280,10 +278,10 @@
     <!-- Questions -->
     <div class="question-card active" id="q1">
         <div class="step-indicator">Question 1 / 5</div>
-        <div class="question-emoji">⭐</div>
-        <div class="question-text">Coucou ma star, rendez-vous jeudi alors ? 😊</div>
+        <div class="question-emoji">🇷🇸</div>
+        <div class="question-text">La Serbie c'est jolie ?</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="nextQuestion(1)">Évidemment ! 🥳</button>
+            <button class="btn btn-yes" onclick="nextQuestion(1)">Clairement oui 💪</button>
             <button class="btn btn-no" id="no1" onmouseover="runAway('no1')" ontouchstart="runAway('no1')">Non</button>
         </div>
         <div class="fun-message" id="msg1"></div>
@@ -324,10 +322,10 @@
 
     <div class="question-card" id="q5">
         <div class="step-indicator">Question 5 / 5</div>
-        <div class="question-emoji">🇷🇸</div>
-        <div class="question-text">La Serbie c'est jolie ?</div>
+        <div class="question-emoji">⭐</div>
+        <div class="question-text">Coucou ma star, rendez-vous jeudi alors ? 😊</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="showFinal()">Clairement oui 💪</button>
+            <button class="btn btn-yes" onclick="showFinal()">Évidemment ! 🥳</button>
             <button class="btn btn-no" id="no5" onmouseover="runAway('no5')" ontouchstart="runAway('no5')">Non</button>
         </div>
         <div class="fun-message" id="msg5"></div>
@@ -359,16 +357,13 @@
         const btn = document.getElementById(id);
         const container = btn.parentElement;
         const containerWidth = container.offsetWidth;
-        const containerHeight = container.offsetHeight;
-
         const maxX = Math.max(0, containerWidth - btn.offsetWidth - 10);
         const maxY = 40;
 
         const randomX = Math.random() * maxX;
         const randomY = (Math.random() - 0.5) * maxY;
 
-        btn.style.left = randomX + 'px';
-        btn.style.top = randomY + 'px';
+        btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
         const qNum = id.replace('no', '');
         const msgEl = document.getElementById('msg' + qNum);
