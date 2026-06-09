@@ -103,7 +103,8 @@
             justify-content: center;
             gap: 20px;
             position: relative;
-            height: 60px;
+            min-height: 60px;
+            padding: 0 10px;
         }
 
         .btn {
@@ -130,6 +131,8 @@
             background: #eee;
             color: #999;
             position: absolute;
+            right: 0;
+            top: 0;
             transition: all 0.1s;
         }
 
@@ -268,7 +271,7 @@
     <!-- Intro -->
     <div class="emoji-header">👋</div>
     <h1>Coucou Lolita !</h1>
-    <p class="subtitle">Theo a quelques questions importantes pour toi...</p>
+    <p class="subtitle">J'ai quelques questions importantes pour toi...</p>
 
     <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
@@ -277,10 +280,10 @@
     <!-- Questions -->
     <div class="question-card active" id="q1">
         <div class="step-indicator">Question 1 / 5</div>
-        <div class="question-emoji">🍺</div>
-        <div class="question-text">Une petite bière jeudi, ça te dit ?</div>
+        <div class="question-emoji">⭐</div>
+        <div class="question-text">Coucou ma star, rendez-vous jeudi alors ? 😊</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="nextQuestion(1)">Oui 🎉</button>
+            <button class="btn btn-yes" onclick="nextQuestion(1)">Évidemment ! 🥳</button>
             <button class="btn btn-no" id="no1" onmouseover="runAway('no1')" ontouchstart="runAway('no1')">Non</button>
         </div>
         <div class="fun-message" id="msg1"></div>
@@ -288,8 +291,8 @@
 
     <div class="question-card" id="q2">
         <div class="step-indicator">Question 2 / 5</div>
-        <div class="question-emoji">🍕</div>
-        <div class="question-text">Et une petite bouffe jeudi aussi ?</div>
+        <div class="question-emoji">🍺</div>
+        <div class="question-text">Petite bière, ça te dit ?</div>
         <div class="btn-container">
             <button class="btn btn-yes" onclick="nextQuestion(2)">Oui 🎉</button>
             <button class="btn btn-no" id="no2" onmouseover="runAway('no2')" ontouchstart="runAway('no2')">Non</button>
@@ -299,10 +302,10 @@
 
     <div class="question-card" id="q3">
         <div class="step-indicator">Question 3 / 5</div>
-        <div class="question-emoji">🎮</div>
-        <div class="question-text">Tu savais que Ronflex dort sous les quais de Lyon en ce moment ?</div>
+        <div class="question-emoji">🍕</div>
+        <div class="question-text">Petite bouffe jeudi aussi ?</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="nextQuestion(3)">Oui évidemment 😏</button>
+            <button class="btn btn-yes" onclick="nextQuestion(3)">Oui 🎉</button>
             <button class="btn btn-no" id="no3" onmouseover="runAway('no3')" ontouchstart="runAway('no3')">Non</button>
         </div>
         <div class="fun-message" id="msg3"></div>
@@ -310,10 +313,10 @@
 
     <div class="question-card" id="q4">
         <div class="step-indicator">Question 4 / 5</div>
-        <div class="question-emoji">🇷🇸</div>
-        <div class="question-text">La Serbie c'est le plus beau pays du monde ?</div>
+        <div class="question-emoji">🎮</div>
+        <div class="question-text">Tu savais que Ronflex dort sous les quais de Lyon en ce moment ?</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="nextQuestion(4)">Clairement oui 💪</button>
+            <button class="btn btn-yes" onclick="nextQuestion(4)">Oui évidemment 😏</button>
             <button class="btn btn-no" id="no4" onmouseover="runAway('no4')" ontouchstart="runAway('no4')">Non</button>
         </div>
         <div class="fun-message" id="msg4"></div>
@@ -321,10 +324,10 @@
 
     <div class="question-card" id="q5">
         <div class="step-indicator">Question 5 / 5</div>
-        <div class="question-emoji">⭐</div>
-        <div class="question-text">Coucou ma star, rendez-vous jeudi alors ? 😊</div>
+        <div class="question-emoji">🇷🇸</div>
+        <div class="question-text">La Serbie c'est jolie ?</div>
         <div class="btn-container">
-            <button class="btn btn-yes" onclick="showFinal()">Évidemment ! 🥳</button>
+            <button class="btn btn-yes" onclick="showFinal()">Clairement oui 💪</button>
             <button class="btn btn-no" id="no5" onmouseover="runAway('no5')" ontouchstart="runAway('no5')">Non</button>
         </div>
         <div class="fun-message" id="msg5"></div>
@@ -333,8 +336,8 @@
     <!-- Final -->
     <div class="final-screen" id="finalScreen">
         <div class="question-emoji">🎉</div>
-        <div class="final-title">C'est validé !</div>
-        <div class="final-subtitle">Jeudi c'est officiel, Theo est trop content 😄</div>
+        <div class="final-title">grrrrrrr !</div>
+        <div class="final-subtitle">Je suis trop content 😄, je te laisse définir le lieu désormais</div>
         <img src="assets/malcom.gif" alt="Malcolm content" class="final-gif" onerror="this.style.display='none'; document.getElementById('fallback').style.display='block'">
         <div id="fallback" style="display:none; font-size:80px;">🕺🎊🕺</div>
         <p style="color:#888; font-size:0.85rem; margin-top:15px;">À jeudi Lolita ! 🍺🍕⚡</p>
@@ -346,10 +349,10 @@
     const totalQuestions = 5;
     const funMessages = [
         "Hé, tu peux pas cliquer là 😏",
-        "Non non non, reviens ! 😄",
+        "Non non non, tu peux pas ! 😄",
         "Ce bouton ne sert à rien tu sais...",
         "Même Pikachu est choqué 😤",
-        "Malcolm non plus aurait pas cliqué là 😂"
+        "Malcolm n'aurait pas osé cliquer là 😂"
     ];
 
     function runAway(id) {
