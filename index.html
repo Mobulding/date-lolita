@@ -290,7 +290,7 @@ html_content = """<!DOCTYPE html>
         <div class="question-emoji">🎉</div>
         <div class="final-title">C'est validé !</div>
         <div class="final-subtitle">Jeudi c'est officiel, Theo est trop content 😄</div>
-        <img src="assets/malcolm.gif" alt="Malcolm content" class="final-gif" onerror="this.style.display='none'; document.getElementById('fallback').style.display='block'">
+        <img src="assets/malcom.gif" alt="Malcolm content" class="final-gif" onerror="this.style.display='none'; document.getElementById('fallback').style.display='block'">
         <div id="fallback" style="display:none; font-size:80px;">🕺🎊🕺</div>
         <p style="color:#888; font-size:0.85rem; margin-top:15px;">À jeudi Lolita ! 🍺🍕⚡</p>
     </div>
@@ -310,11 +310,10 @@ html_content = """<!DOCTYPE html>
     function runAway(id) {
         const btn = document.getElementById(id);
         const container = btn.parentElement;
-        const rect = container.getBoundingClientRect();
         const containerWidth = container.offsetWidth;
         const containerHeight = container.offsetHeight;
 
-        const maxX = containerWidth - btn.offsetWidth - 10;
+        const maxX = Math.max(0, containerWidth - btn.offsetWidth - 10);
         const maxY = 40;
 
         const randomX = Math.random() * maxX;
