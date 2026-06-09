@@ -1,0 +1,378 @@
+html_content = """<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeudi ? 👀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #C6363C 0%, #1a1a2e 50%, #003DA5 100%);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .emoji-header {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #C6363C;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            background: #eee;
+            border-radius: 50px;
+            height: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #C6363C, #003DA5);
+            border-radius: 50px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .question-card {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #222;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #C6363C, #003DA5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(198,54,60,0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background: #eee;
+            color: #999;
+            position: absolute;
+            transition: all 0.1s;
+        }
+
+        .fun-message {
+            font-size: 0.85rem;
+            color: #C6363C;
+            margin-top: 15px;
+            min-height: 20px;
+            font-style: italic;
+        }
+
+        .final-screen {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .final-screen.active {
+            display: block;
+        }
+
+        .final-gif {
+            width: 220px;
+            border-radius: 16px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .final-title {
+            font-size: 2rem;
+            color: #C6363C;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .final-subtitle {
+            color: #444;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            animation: fall linear forwards;
+            top: -20px;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .pokemon-float {
+            position: absolute;
+            font-size: 28px;
+            animation: floatPoke 3s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        .pokemon-float:nth-child(1) { top: 10px; left: 10px; animation-delay: 0s; }
+        .pokemon-float:nth-child(2) { top: 10px; right: 10px; animation-delay: 0.5s; }
+        .pokemon-float:nth-child(3) { bottom: 10px; left: 10px; animation-delay: 1s; }
+        .pokemon-float:nth-child(4) { bottom: 10px; right: 10px; animation-delay: 1.5s; }
+
+        @keyframes floatPoke {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        .step-indicator {
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Pokémon déco -->
+    <div class="pokemon-float">⚡</div>
+    <div class="pokemon-float">🔴</div>
+    <div class="pokemon-float">🌊</div>
+    <div class="pokemon-float">🔥</div>
+
+    <!-- Intro -->
+    <div class="emoji-header">👋</div>
+    <h1>Coucou Lolita !</h1>
+    <p class="subtitle">Theo a quelques questions importantes pour toi...</p>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Questions -->
+    <div class="question-card active" id="q1">
+        <div class="step-indicator">Question 1 / 5</div>
+        <div class="question-emoji">🍺</div>
+        <div class="question-text">Une petite bière jeudi, ça te dit ?</div>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="nextQuestion(1)">Oui 🎉</button>
+            <button class="btn btn-no" id="no1" onmouseover="runAway('no1')" ontouchstart="runAway('no1')">Non</button>
+        </div>
+        <div class="fun-message" id="msg1"></div>
+    </div>
+
+    <div class="question-card" id="q2">
+        <div class="step-indicator">Question 2 / 5</div>
+        <div class="question-emoji">🍕</div>
+        <div class="question-text">Et une petite bouffe jeudi aussi ?</div>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="nextQuestion(2)">Oui 🎉</button>
+            <button class="btn btn-no" id="no2" onmouseover="runAway('no2')" ontouchstart="runAway('no2')">Non</button>
+        </div>
+        <div class="fun-message" id="msg2"></div>
+    </div>
+
+    <div class="question-card" id="q3">
+        <div class="step-indicator">Question 3 / 5</div>
+        <div class="question-emoji">🎮</div>
+        <div class="question-text">Tu savais que Ronflex dort sous les quais de Lyon en ce moment ?</div>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="nextQuestion(3)">Oui évidemment 😏</button>
+            <button class="btn btn-no" id="no3" onmouseover="runAway('no3')" ontouchstart="runAway('no3')">Non</button>
+        </div>
+        <div class="fun-message" id="msg3"></div>
+    </div>
+
+    <div class="question-card" id="q4">
+        <div class="step-indicator">Question 4 / 5</div>
+        <div class="question-emoji">🇷🇸</div>
+        <div class="question-text">La Serbie c'est le plus beau pays du monde ?</div>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="nextQuestion(4)">Clairement oui 💪</button>
+            <button class="btn btn-no" id="no4" onmouseover="runAway('no4')" ontouchstart="runAway('no4')">Non</button>
+        </div>
+        <div class="fun-message" id="msg4"></div>
+    </div>
+
+    <div class="question-card" id="q5">
+        <div class="step-indicator">Question 5 / 5</div>
+        <div class="question-emoji">⭐</div>
+        <div class="question-text">Coucou ma star, rendez-vous jeudi alors ? 😊</div>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="showFinal()">Évidemment ! 🥳</button>
+            <button class="btn btn-no" id="no5" onmouseover="runAway('no5')" ontouchstart="runAway('no5')">Non</button>
+        </div>
+        <div class="fun-message" id="msg5"></div>
+    </div>
+
+    <!-- Final -->
+    <div class="final-screen" id="finalScreen">
+        <div class="question-emoji">🎉</div>
+        <div class="final-title">C'est validé !</div>
+        <div class="final-subtitle">Jeudi c'est officiel, Theo est trop content 😄</div>
+        <img src="assets/malcolm.gif" alt="Malcolm content" class="final-gif" onerror="this.style.display='none'; document.getElementById('fallback').style.display='block'">
+        <div id="fallback" style="display:none; font-size:80px;">🕺🎊🕺</div>
+        <p style="color:#888; font-size:0.85rem; margin-top:15px;">À jeudi Lolita ! 🍺🍕⚡</p>
+    </div>
+</div>
+
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 5;
+    const funMessages = [
+        "Hé, tu peux pas cliquer là 😏",
+        "Non non non, reviens ! 😄",
+        "Ce bouton ne sert à rien tu sais...",
+        "Même Pikachu est choqué 😤",
+        "Malcolm non plus aurait pas cliqué là 😂"
+    ];
+
+    function runAway(id) {
+        const btn = document.getElementById(id);
+        const container = btn.parentElement;
+        const rect = container.getBoundingClientRect();
+        const containerWidth = container.offsetWidth;
+        const containerHeight = container.offsetHeight;
+
+        const maxX = containerWidth - btn.offsetWidth - 10;
+        const maxY = 40;
+
+        const randomX = Math.random() * maxX;
+        const randomY = (Math.random() - 0.5) * maxY;
+
+        btn.style.left = randomX + 'px';
+        btn.style.top = randomY + 'px';
+
+        const qNum = id.replace('no', '');
+        const msgEl = document.getElementById('msg' + qNum);
+        msgEl.textContent = funMessages[Math.floor(Math.random() * funMessages.length)];
+    }
+
+    function nextQuestion(num) {
+        document.getElementById('q' + num).classList.remove('active');
+        currentQuestion = num + 1;
+        if (currentQuestion <= totalQuestions) {
+            document.getElementById('q' + currentQuestion).classList.add('active');
+        }
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const fill = document.getElementById('progressFill');
+        const pct = ((currentQuestion - 1) / totalQuestions) * 100;
+        fill.style.width = pct + '%';
+    }
+
+    function showFinal() {
+        document.getElementById('q5').classList.remove('active');
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('finalScreen').classList.add('active');
+        launchConfetti();
+    }
+
+    function launchConfetti() {
+        const colors = ['#C6363C', '#003DA5', '#FFD700', '#ffffff', '#ff69b4'];
+        for (let i = 0; i < 80; i++) {
+            setTimeout(() => {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.width = (Math.random() * 10 + 5) + 'px';
+                conf.style.height = (Math.random() * 10 + 5) + 'px';
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                conf.style.animationDelay = '0s';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }, i * 50);
+        }
+    }
+</script>
+
+</body>
+</html>"""
+
+with open("lolita_date.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Done")
